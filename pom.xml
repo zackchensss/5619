@@ -28,7 +28,8 @@
     </scm>
     <properties>
         <java.version>17</java.version>
-        <lombok>1.18.20</lombok>
+        <mybatis.spring>3.0.2</mybatis.spring>
+        <lombok>1.18.30</lombok>
     </properties>
     <dependencies>
         <dependency>
@@ -38,13 +39,17 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
-            <scope>provided</scope>
+            <version>${lombok}</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot</artifactId>
-            <version>2.3.1</version>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
