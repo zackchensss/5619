@@ -1,0 +1,31 @@
+package com.usyd.ee5619.Server;
+
+import com.usyd.ee5619.DTO.UserDTO;
+import com.usyd.ee5619.DTO.UserLoginDTO;
+import com.usyd.ee5619.Entity.User;
+import com.usyd.ee5619.Mapper.UserMapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.security.auth.login.AccountNotFoundException;
+import java.time.LocalDateTime;
+
+@Service
+public class UserService {
+    @Autowired
+    private UserMapper userMapper;
+    public void save(UserDTO userDTO){
+        User user = new User();
+        BeanUtils.copyProperties(userDTO,user);
+        user.setCreateTime(LocalDateTime.now());
+        user.setLastLoginTime(LocalDateTime.now());
+        userMapper.insert(user);
+    }
+
+    public User signin(UserLoginDTO userLoginDTO) {
+        String username = userLoginDTO.getUserName();
+        User user = userMapper.getByUsername(username);
+        return user;
+    }
+}

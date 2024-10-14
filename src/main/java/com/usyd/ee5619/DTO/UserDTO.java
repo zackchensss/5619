@@ -4,9 +4,10 @@ import lombok.Data;
 import java.io.Serializable;
 @Data
 public class UserDTO implements Serializable {
-    private String name;
+    private String userName;
     private String grade;
-    private String difficulty;
+    private String level;
     private String email;
     private String password;
+    private String phone;
 }
