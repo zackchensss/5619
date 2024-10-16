@@ -4,18 +4,15 @@ import com.usyd.ee5619.Common.Result;
 import com.usyd.ee5619.DTO.UserDTO;
 import com.usyd.ee5619.DTO.UserLoginDTO;
 import com.usyd.ee5619.Entity.User;
-import com.usyd.ee5619.Mapper.UserMapper;
-import com.usyd.ee5619.Server.UserService;
+import com.usyd.ee5619.Service.UserService;
 import com.usyd.ee5619.VO.UserLoginVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 /**
  * The function of users signing in and signing up
  */

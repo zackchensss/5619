@@ -1,4 +1,4 @@
-package com.usyd.ee5619.Server;
+package com.usyd.ee5619.Service;
 
 import com.usyd.ee5619.Entity.StudyTime;
 import com.usyd.ee5619.Mapper.StudyTimeMapper;
