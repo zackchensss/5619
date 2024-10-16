@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-
+/**
+ * The function of users signing in and signing up
+ */
 @RestController
 @Slf4j
 public class UserController {

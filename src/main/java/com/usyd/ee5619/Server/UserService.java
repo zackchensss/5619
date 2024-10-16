@@ -28,4 +28,9 @@ public class UserService {
         User user = userMapper.getByUsername(username);
         return user;
     }
+
+    public int findUserIdByUsername(String username) {
+        User user = userMapper.getByUsername(username);
+        return user.getUserId();
+    }
 }
