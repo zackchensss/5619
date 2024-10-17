@@ -22,8 +22,9 @@ public interface HomePageMapper {
 
     @Select("SELECT SUM(complete_num) FROM course_status WHERE user_id = #{userId} AND course = 'writing'")
     int getWritingCompletion(int userId);
-    @Select("SELECT MONTH(date) AS month, SUM(study_time) AS time FROM study_progress WHERE user_id = #{userId} GROUP BY MONTH(date)")
+    @Select("SELECT DATE_FORMAT(date, '%m-%d') AS month, SUM(study_time) AS time FROM study_progress WHERE user_id = #{userId} GROUP BY month")
     List<StudyTimeByMonth> getStudyTimeByMonth(int userId);
-    @Select("SELECT course, completion_date FROM course_status WHERE user_id = #{userId}")
+
+    @Select("SELECT course, completion_date FROM course_status WHERE user_id = #{userId} AND complete_num != 0")
     List<CourseSchedule> getSchedule(int userId);
 }

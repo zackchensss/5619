@@ -28,7 +28,7 @@ public class HomePageService {
 
         Completion completion = new Completion();
         completion.setMath(mathCompletion >= 3 ? 100 : mathCompletion * 33);
-        completion.setReading(readingCompletion >= 3 ? 100 : mathCompletion * 33);
+        completion.setReading(readingCompletion >= 3 ? 100 : readingCompletion * 33);
         completion.setWriting(writingCompletion == 1 ? 100 : 0);
 
         List<StudyTimeByMonth> studyTimeByMonth = homePageMapper.getStudyTimeByMonth(userId);
