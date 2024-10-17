@@ -27,6 +27,7 @@ public class HomePageService {
         int writingCompletion = homePageMapper.getWritingCompletion(userId);
 
         Completion completion = new Completion();
+        //calculate the copletion
         completion.setMath(mathCompletion >= 3 ? 100 : mathCompletion * 33);
         completion.setReading(readingCompletion >= 3 ? 100 : readingCompletion * 33);
         completion.setWriting(writingCompletion == 1 ? 100 : 0);
