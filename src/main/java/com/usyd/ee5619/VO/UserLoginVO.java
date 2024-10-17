@@ -18,10 +18,10 @@ public class UserLoginVO {
 
     private String email;
 
-    private Integer phone;
+    private int phone;
 
     private String grade;
 
-    private Integer level;
+    private String level;
 
 }

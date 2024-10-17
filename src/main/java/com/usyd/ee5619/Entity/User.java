@@ -18,13 +18,13 @@ public class User implements Serializable {
 
     private String email;
 
-    private String phone;
+    private int phone;
 
     private LocalDateTime createTime;
 
     private String grade;
 
-    private int level;
+    private String level;
 
     private LocalDateTime lastLoginTime;
 

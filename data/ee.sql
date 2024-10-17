@@ -29,7 +29,7 @@ CREATE TABLE `course_status` (
   `complete_num` int NOT NULL,
   `completion_date` date NOT NULL,
   PRIMARY KEY (`course_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `course_status` (
 
 LOCK TABLES `course_status` WRITE;
 /*!40000 ALTER TABLE `course_status` DISABLE KEYS */;
-INSERT INTO `course_status` VALUES (1,6,'math',1,'2024-10-16');
+INSERT INTO `course_status` VALUES (1,6,'math',1,'2024-10-16'),(2,6,'reading',0,'2024-10-16'),(3,6,'writing',0,'2024-10-16');
 /*!40000 ALTER TABLE `course_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,10 +83,11 @@ CREATE TABLE `Users` (
   `phone` int DEFAULT NULL,
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `grade` varchar(100) DEFAULT NULL,
-  `level` int DEFAULT NULL,
+  `level` varchar(255) DEFAULT NULL,
   `last_login_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `unique_user_name` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +96,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (1,'\'john\'','\'1231313\'','\'qewqeqwe.com\'',NULL,'2024-10-07 19:20:16','\'grade1\'',NULL,'2024-10-07 19:20:17'),(2,'\'evan\'','\'12313131\'','\'qewqeq1we.com\'',NULL,'2024-10-14 20:09:54','\'grade1\'',NULL,'2024-10-14 20:09:54'),(4,'evan','12313131','qewqeq1we.com',NULL,'2024-10-14 20:46:16','grade1',NULL,'2024-10-14 20:46:16'),(6,'evan2','12313131','qewqeq1we.com',NULL,'2024-10-14 20:49:02','grade1',NULL,'2024-10-14 20:49:02'),(7,'evan3','12313131','qewqeq1we.com',NULL,'2024-10-14 20:49:53','grade1',NULL,'2024-10-14 20:49:53');
+INSERT INTO `Users` VALUES (1,'\'john\'','\'1231313\'','\'qewqeqwe.com\'',NULL,'2024-10-07 19:20:16','\'grade1\'',NULL,'2024-10-07 19:20:17'),(2,'\'evan\'','\'12313131\'','\'qewqeq1we.com\'',NULL,'2024-10-14 20:09:54','\'grade1\'',NULL,'2024-10-14 20:09:54'),(4,'evan','12313131','qewqeq1we.com',NULL,'2024-10-14 20:46:16','grade1',NULL,'2024-10-14 20:46:16'),(6,'evan2','12313131','qewqeq1we.com',NULL,'2024-10-14 20:49:02','grade1',NULL,'2024-10-14 20:49:02'),(7,'evan3','12313131','qewqeq1we.com',NULL,'2024-10-14 20:49:53','grade1',NULL,'2024-10-14 20:49:53'),(9,'evan4','12313131','qewqeq1we.com',111111,'2024-10-17 22:09:43','grade1','easy','2024-10-17 22:09:43');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -108,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-17  0:08:19
+-- Dump completed on 2024-10-17 22:11:30
