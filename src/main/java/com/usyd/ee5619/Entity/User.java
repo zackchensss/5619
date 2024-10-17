@@ -24,7 +24,7 @@ public class User implements Serializable {
 
     private String grade;
 
-    private String level;
+    private int level;
 
     private LocalDateTime lastLoginTime;
 
