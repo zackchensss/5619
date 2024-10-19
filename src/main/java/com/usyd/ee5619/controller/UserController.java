@@ -9,6 +9,7 @@ import com.usyd.ee5619.VO.UserLoginVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class UserController {
             return Result.error("The account is not existed");
         }
         String password = user.getPassword();
-        if(!password.equals(userLoginDTO.getPassword())){
+        if(!password.equals(DigestUtils.md5DigestAsHex(userLoginDTO.getPassword().getBytes()))){
             return Result.error("The password is wrong");
         }
         UserLoginVO userLoginVO = new UserLoginVO();
