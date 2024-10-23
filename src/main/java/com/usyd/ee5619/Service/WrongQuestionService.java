@@ -1,5 +1,7 @@
 package com.usyd.ee5619.Service;
 
+import com.usyd.ee5619.Entity.ErrorData;
+import com.usyd.ee5619.Entity.ResponseData;
 import com.usyd.ee5619.Entity.User;
 import com.usyd.ee5619.Entity.WrongQuestion;
 import com.usyd.ee5619.Mapper.UserMapper;
@@ -7,10 +9,11 @@ import com.usyd.ee5619.Mapper.WrongQuestionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class WrongQuestionService {
@@ -53,6 +56,7 @@ public class WrongQuestionService {
             WrongQuestion wrongQuestion = new WrongQuestion();
             wrongQuestion.setUnit(unit);
             wrongQuestion.setWrongContent(questionContent);
+            wrongQuestion.setUnit(unit);
             wrongQuestion.setLastWrongTime(date.atStartOfDay());
             // set initial wrong number as 1
             wrongQuestion.setWrongNumber(1);
@@ -61,4 +65,32 @@ public class WrongQuestionService {
             saveWrongQuestion(wrongQuestion);
         }
     }
+
+    public ResponseData getWrongQuestionsResponse() {
+        List<WrongQuestion> wrongQuestions =  wrongQuestionMapper.findALl();
+        Map<String, List<String>> dateToUnitsMap = new HashMap<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        for (WrongQuestion question : wrongQuestions) {
+            String date = question.getLastWrongTime().format(formatter);
+            String unit = question.getUnit();
+
+            dateToUnitsMap.computeIfAbsent(date, k -> new ArrayList<>()).add(unit);
+        }
+
+        List<ErrorData> dataList = new ArrayList<>();
+        for (Map.Entry<String, List<String>> entry : dateToUnitsMap.entrySet()) {
+            ErrorData errorData = new ErrorData();
+            errorData.setDate(entry.getKey());
+            errorData.setUnits(entry.getValue());
+            dataList.add(errorData);
+        }
+
+        ResponseData responseData = new ResponseData();
+        responseData.setCode(0);
+        responseData.setMessage("success");
+        responseData.setData(dataList);
+
+        return responseData;
+    }
+
 }

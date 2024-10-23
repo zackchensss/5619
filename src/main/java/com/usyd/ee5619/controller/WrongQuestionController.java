@@ -1,5 +1,6 @@
 package com.usyd.ee5619.controller;
 
+import com.usyd.ee5619.Entity.ResponseData;
 import com.usyd.ee5619.Entity.WrongQuestion;
 import com.usyd.ee5619.Service.WrongQuestionService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +23,8 @@ public class WrongQuestionController {
     private WrongQuestionService wrongQuestionService;
 
     // get wrong questions list by date and unit info
-    @GetMapping("/getMistakeList")
-    public Map<String, Object> getMistakeList() {
+    @GetMapping("/getMistakeListBack")
+    public Map<String, Object> getMistakeListBack() {
         List<WrongQuestion> wrongQuestions = wrongQuestionService.getAllWrongQuestions();
         Map<String, Object> response = new HashMap<>();
 
@@ -57,6 +58,12 @@ public class WrongQuestionController {
         return response;
     }
 
+    @GetMapping("/getMistakeList")
+    public ResponseData getMistakeList() {
+        ResponseData wrongQuestionsResponse = wrongQuestionService.getWrongQuestionsResponse();
+
+        return wrongQuestionsResponse;
+    }
     // get wrong questions under certain date and unit
     @GetMapping("/getMistakeQuestions")
     public Map<String, Object> getMistakeQuestions(
