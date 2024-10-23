@@ -51,6 +51,7 @@ public class WrongQuestionService {
     public void addToMistakeBook(String unit, List<String> questions, LocalDate date, String userName){
         for (String questionContent : questions) {
             WrongQuestion wrongQuestion = new WrongQuestion();
+            wrongQuestion.setUnit(unit);
             wrongQuestion.setWrongContent(questionContent);
             wrongQuestion.setLastWrongTime(date.atStartOfDay());
             // set initial wrong number as 1

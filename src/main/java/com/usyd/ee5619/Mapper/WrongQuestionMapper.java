@@ -26,8 +26,8 @@ public interface WrongQuestionMapper {
     @Select("SELECT * FROM wrong_question")
     List<WrongQuestion> findALl();
 
-    @Insert("INSERT INTO wrong_question (user_id, wrong_content, last_wrong_time, wrong_number)" +
-            "VALUES (#{userId}, #{wrongContent}, #{lastWrongTime}, #{wrongNumber})")
+    @Insert("INSERT INTO wrong_question (user_id, unit, wrong_content, last_wrong_time, wrong_number)" +
+            "VALUES (#{userId}, #{unit}, #{wrongContent}, #{lastWrongTime}, #{wrongNumber})")
     void save(WrongQuestion wrongQuestion);
 
     @Delete("DELETE FROM wrong_question WHERE wrong_id = #{wrongId}")
