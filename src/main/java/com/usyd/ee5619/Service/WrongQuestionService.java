@@ -52,6 +52,7 @@ public class WrongQuestionService {
             wrongQuestion.setWrongNumber(1);
             User user = userMapper.getByUsername(userName);
             wrongQuestion.setUserId(user.getUserId());
+            wrongQuestionMapper.save(wrongQuestion);
         }
     }
 }
