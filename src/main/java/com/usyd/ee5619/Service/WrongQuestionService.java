@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,10 @@ public class WrongQuestionService {
         return wrongQuestionMapper.findALl();
     }
 
+    public List<WrongQuestion> getWrongQuestionsByUnitAndTime(String unit, LocalDateTime lastWrongTime) {
+        return wrongQuestionMapper.findWrongQuestionByUnitAndTime(unit, lastWrongTime);
+    }
+
     public void saveWrongQuestion(WrongQuestion wrongQuestion) {
         wrongQuestionMapper.save(wrongQuestion);
     }
@@ -52,6 +57,7 @@ public class WrongQuestionService {
             wrongQuestion.setWrongNumber(1);
             User user = userMapper.getByUsername(userName);
             wrongQuestion.setUserId(user.getUserId());
+            saveWrongQuestion(wrongQuestion);
         }
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,28 +27,28 @@ public class WrongQuestionController {
         List<WrongQuestion> wrongQuestions = wrongQuestionService.getAllWrongQuestions();
         Map<String, Object> response = new HashMap<>();
 
-        Map<LocalDate, List<WrongQuestion>> wrongQuestionsGroupedByDate =
+        // group questions by date and unit name for list view display
+        Map<LocalDate, Map<String, List<WrongQuestion>>> wrongQuestionsGroupedByDateAndUnit =
                 wrongQuestions.stream().collect(Collectors.groupingBy(
                         wrongQuestion ->
-                                wrongQuestion.getLastWrongTime().toLocalDate()
+                                wrongQuestion.getLastWrongTime().toLocalDate(),
+                        Collectors.groupingBy(WrongQuestion::getWrongContent)
                 ));
 
+        // construct response data
         List<Map<String, Object>> responseData = new ArrayList<>();
-        wrongQuestionsGroupedByDate.forEach(
-                (date, questions) -> {
-                    Map<String, Object> dateGroup = new HashMap<>();
-                    dateGroup.put("date", date.toString());
-                    List<Map<String, String>> questionList = questions.stream()
-                            .map(q -> {
-                                Map<String, String> questionData = new HashMap<>();
-                                questionData.put("id", String.valueOf(q.getWrongId()));
-                                questionData.put("name", q.getWrongContent());
-                                return questionData;
-                            }).collect(Collectors.toList());
-                    dateGroup.put("questions", questionList);
-                    responseData.add(dateGroup);
-                }
-        );
+        wrongQuestionsGroupedByDateAndUnit.forEach((date, unitMap) -> {
+            Map<String, Object> dateGroup = new HashMap<>();
+            dateGroup.put("date", date.toString());
+            List<Map<String, String>> unitList = unitMap.keySet().stream()
+                    .map(unit -> {
+                        Map<String, String> unitData = new HashMap<>();
+                        unitData.put("name", unit);
+                        return unitData;
+                    }).collect(Collectors.toList());
+            dateGroup.put("units", unitList);
+            responseData.add(dateGroup);
+        });
 
         response.put("code", 0);
         response.put("message", "success");
@@ -62,14 +63,16 @@ public class WrongQuestionController {
             @RequestParam("unit") String unit,
             @RequestParam("date") String dateStr) {
         LocalDate date = LocalDate.parse(dateStr);
-        List<WrongQuestion> wrongQuestions = wrongQuestionService.getAllWrongQuestions();
+        LocalDateTime dateToTime = date.atStartOfDay();
+        List<WrongQuestion> wrongQuestions = wrongQuestionService.getWrongQuestionsByUnitAndTime(unit, dateToTime);
 
-        // filter out wrong questions
-        List<String> questionContents = wrongQuestions.stream()
-                .filter(wq -> wq.getLastWrongTime().toLocalDate().equals(date) &&
-                        wq.getWrongContent().equalsIgnoreCase(unit))
-                .map(WrongQuestion::getWrongContent)
-                .collect(Collectors.toList());
+        // get wrong question contents
+        List<Map<String, String>> questionContents = wrongQuestions.stream()
+                .map(wrongQuestion -> {
+                    Map<String, String> questionData = new HashMap<>();
+                    questionData.put("question", wrongQuestion.getWrongContent());
+                    return questionData;
+                }).collect(Collectors.toList());
 
         // construct response data
         Map<String, Object> response = new HashMap<>();

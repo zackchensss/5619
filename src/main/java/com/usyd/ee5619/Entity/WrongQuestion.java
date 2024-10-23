@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class WrongQuestion {
     private int wrongId;
     private int userId;
+    private String unit;
     private String wrongContent;
     private LocalDateTime lastWrongTime;
     private Integer wrongNumber;

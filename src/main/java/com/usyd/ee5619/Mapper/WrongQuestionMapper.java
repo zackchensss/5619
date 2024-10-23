@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -15,6 +16,9 @@ public interface WrongQuestionMapper {
 
     @Select("SELECT * FROM wrong_question WHERE wrong_number > #{wrongNumber}")
     List<WrongQuestion> findWrongQuestionsByWrongNumberGreaterThan(Integer wrongNumber);
+
+    @Select("SELECT * FROM wrong_question WHERE unit = #{unit} AND last_wrong_time = #{lastWrongTime}")
+    List<WrongQuestion> findWrongQuestionByUnitAndTime(String unit, LocalDateTime lastWrongTime);
 
     @Select("SELECT * FROM wrong_question WHERE wrong_id = #{wrongId}")
     WrongQuestion findById(int wrongId);
