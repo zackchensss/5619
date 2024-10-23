@@ -15,10 +15,10 @@ public interface VocabularyMapper {
     @Select("SELECT * FROM vocabulary WHERE user_id = #{user.userId}")
     List<Vocabulary> findByUserId(int userId);
 
-    @Select("SELECT * FROM vocabulary WHERE create_time = #{createDate}")
+    @Select("SELECT * FROM vocabulary WHERE create_date = #{createDate}")
     List<Vocabulary> findByCreateTime(LocalDate createDate);
 
-    @Delete("DELETE FROM vocabulary WHERE vocabulary_content = #{vocabularyContent} AND create_time = #{createDate}")
+    @Delete("DELETE FROM vocabulary WHERE vocabulary_content = #{vocabularyContent} AND create_date = #{createDate}")
     void deleteAllByVocabularyContentAndCreateDate(String vocabularyContent, LocalDate createDate);
 
     @Insert("INSERT INTO vocabulary (user_id, vocabulary_content, create_date)" +

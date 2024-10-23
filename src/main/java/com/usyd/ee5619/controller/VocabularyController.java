@@ -24,7 +24,7 @@ public class VocabularyController {
 
 
     @GetMapping("/getVocabularyList")
-    public Map<String, Object> getVocabularyList(@RequestBody String userName) {
+    public Map<String, Object> getVocabularyList(@RequestParam String userName) {
         User user = userMapper.getByUsername(userName);
         List<Vocabulary> vocabularyList =
                 vocabularyService.getVocabularyListByUserId(user.getUserId());
